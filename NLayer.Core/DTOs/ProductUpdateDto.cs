@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NLayer.Core
+namespace NLayer.Core.DTOs
 {
-    public class Product:BaseEntity
+    public class ProductUpdateDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Stock { get; set; }
         public decimal Price { get; set; }
-
-        //Relations---------------------------------
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
-
-        public ProductFeature ProductFeature { get; set; }
     }
 }

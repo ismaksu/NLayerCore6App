@@ -6,7 +6,7 @@ namespace NLayer.API.Filters
 {
     public class ValidateFilterAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuted(ActionExecutedContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)
             {

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using NLayer.Core.DTOs;
 using NLayer.Core.Services;
 
 namespace NLayer.Web.Controllers
@@ -7,15 +9,15 @@ namespace NLayer.Web.Controllers
     {
         private readonly IProductService _services;
 
-        public ProductsController(IProductService services)
+        public ProductsController(IProductService services, IMapper mapper)
         {
             _services = services;
         }
 
         public async Task<IActionResult> Index()
         {
-            var categories = await _services.GetProductsWithCategory();
-            return View(categories);
+            var products = await _services.GetProductsWithCategory();
+            return View(products);
         }
     }
 }

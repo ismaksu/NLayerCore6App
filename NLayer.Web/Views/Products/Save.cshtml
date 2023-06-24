@@ -28,7 +28,6 @@
         <div class="form-group">
             <label asp-for="CategoryId"></label>
             <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control"></select>
-            <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
         <br />
         <input class="btn btn-primary" type="submit" value="Save Product" />

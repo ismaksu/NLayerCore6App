@@ -1,12 +1,14 @@
 ﻿@model ProductDto
 @{
-    ViewData["Title"] = "Save";
+    ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
-    <h1>Save Product</h1>
-    <form asp-controller="Products" asp-action="Save" method="post">
+    <h1>Update Product</h1>
+    <form asp-controller="Products" asp-action="Update" method="post">
+        <input type="hidden" asp-for="Id"/>
+        <input type="hidden" asp-for="CreationDate"/>
         <div class="form-group">
             <label asp-for="Name"></label>
             <input asp-for="Name" class="form-control" />
@@ -30,6 +32,6 @@
             <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control"></select>
         </div>
         <br />
-        <input class="btn btn-primary" type="submit" value="Save Product" />
+        <input class="btn btn-primary" type="submit" value="Update Product" />
     </form>
 </div>

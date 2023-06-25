@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using NLayer.Core.DTOs;
 using NLayer.Core.Models;
 using NLayer.Core.Services;
+using System.Runtime.InteropServices;
 
 namespace NLayer.Web.Controllers
 {
@@ -44,10 +45,35 @@ namespace NLayer.Web.Controllers
             if (ModelState.IsValid)
             {
                 await _services.AddAsync(_mapper.Map<Product>(product));
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
 
-            return View();
+            return View(product);
+        }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            var product = await _services.GetByIdAsync(id);
+            var categories = await _categoryService.GetAllAsync();
+            var categoryDto = _mapper.Map<List<CategoryDto>>(categories.ToList());
+            ViewBag.Categories = new SelectList(categoryDto, "Id", "Name", product.CategoryId);
+            return View(_mapper.Map<ProductDto>(product));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ProductDto productDto)
+        {
+            if (ModelState.IsValid)
+            {
+                await _services.UpdateAsync(_mapper.Map<Product>(productDto));
+                return RedirectToAction("Index");
+            }
+
+            var categories = await _categoryService.GetAllAsync();
+            var categoryDto = _mapper.Map<List<CategoryDto>>(categories);
+            ViewBag.Categories = new SelectList(categoryDto, "Id", "Name", productDto.CategoryId);
+
+            return View(productDto);
         }
     }
 }
